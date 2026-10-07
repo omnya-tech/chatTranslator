@@ -1,0 +1,10 @@
+# Built by build.py
+*.nvda-addon
+*.mo
+chatTranslator.pot
+
+__pycache__/
+*.pyc
+
+# Publishing notes, not part of the add-on
+مقال الإضافة.txt

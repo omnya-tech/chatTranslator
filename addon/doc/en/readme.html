@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chat Translator add-on guide</title>
+</head>
+<body>
+<h1>Chat Translator add-on guide</h1>
+<p>Version 1.0.0. Requires NVDA 2025.1 or later.</p>
+<p>Developed by Omnya Technology</p>
+
+<h2>What is this add-on?</h2>
+<p>This add-on lets you write to foreign companies and organisations in your own language. You type your message in your language and press Enter; the add-on translates it into the other party's language and sends it. When they reply in their language, NVDA reads the reply to you translated into yours.</p>
+<p>The add-on works in:</p>
+<ul>
+<li>WhatsApp for desktop.</li>
+<li>Telegram for desktop and Unigram.</li>
+<li>Web browsers, such as WhatsApp Web and chat or customer-support sites.</li>
+<li>Any text field in any other program.</li>
+</ul>
+
+<h2>Quick start</h2>
+<ol>
+<li>Open the conversation with the company you want to contact and move to the message field.</li>
+<li>Press NVDA+Alt+Shift+L, choose the other party's language from the list, and press Enter. Translation is turned on for this conversation automatically.</li>
+<li>Type your message in your language and press Enter. A short beep tells you translation is under way; then the message is sent and you hear, for example, "Sent in English".</li>
+<li>When you read the other party's reply, it is spoken translated into your language. To hear the original text, press NVDA+Alt+Shift+O.</li>
+</ol>
+
+<h2>Keyboard commands</h2>
+<p>All of the add-on's commands start with NVDA+Alt+Shift, so they do not clash with NVDA's own commands.</p>
+<table border="1">
+<tr><th>Command</th><th>Action</th></tr>
+<tr><td>NVDA+Alt+Shift+A</td><td>Turns the whole add-on on or off. When it is off nothing is translated and Enter works normally everywhere; your conversation settings are kept.</td></tr>
+<tr><td>NVDA+Alt+Shift+T</td><td>Turns translation on or off in the current conversation.</td></tr>
+<tr><td>NVDA+Alt+Shift+L</td><td>Chooses the other party's language in the current conversation and turns translation on there.</td></tr>
+<tr><td>NVDA+Alt+Shift+Enter</td><td>Sends the message as you wrote it, without translating it, once, without turning translation off. Useful for numbers and links.</td></tr>
+<tr><td>NVDA+Alt+Shift+V</td><td>Pastes the text in the clipboard into the message field, translated into the other party's language, and speaks the translation. It does not send the message: check it, then press Enter.</td></tr>
+<tr><td>NVDA+Alt+Shift+O</td><td>Speaks the original text of the last translation.</td></tr>
+<tr><td>NVDA+Alt+Shift+C</td><td>Translates the selected text, or the clipboard when nothing is selected, in any program. Press it twice to copy the translation to the clipboard.</td></tr>
+<tr><td>NVDA+Alt+Shift+H</td><td>Shows the history of translated messages.</td></tr>
+<tr><td>NVDA+Alt+Shift+S</td><td>Reports whether translation is on in the current conversation, the other party's language and the translation service in use.</td></tr>
+</table>
+<p>You can change any of these commands from the NVDA menu: Preferences, Input gestures, Chat Translator category.</p>
+
+<h2>Sending copied text translated</h2>
+<p>If you have text in the clipboard and want to send it to the other party in their language, move to the message field and press NVDA+Alt+Shift+V instead of Control+V. The text is pasted translated at the cursor, without removing what you already typed, and you hear the translation. Then press Enter to send it. The clipboard itself is left unchanged.</p>
+
+<h2>Translating selected text or the clipboard</h2>
+<p>NVDA+Alt+Shift+C works in any program: email, documents, web pages. Foreign text is translated into your language; text in your language is translated into the other party's language in the current conversation. After hearing the translation, press the command twice quickly to copy it.</p>
+
+<h2>Settings</h2>
+<p>Open the NVDA menu, then Preferences, then Settings, and choose the Chat Translator category. It contains:</p>
+
+<h3>Enable Chat Translator</h3>
+<p>Turns the whole add-on on or off, exactly like NVDA+Alt+Shift+A.</p>
+
+<h3>Translation service</h3>
+<p>Five services are available:</p>
+<ul>
+<li><strong>Google Translate:</strong> free, no sign-up needed. This is the default.</li>
+<li><strong>Microsoft Bing Translator:</strong> free, no sign-up needed, and good for formal messages.</li>
+<li><strong>MyMemory:</strong> free and no sign-up needed, but it has a daily character limit, so it works best as a backup.</li>
+<li><strong>DeepL:</strong> excellent translation. It needs an API key, which you get for free by signing up at deepl.com, and it lets you translate half a million characters a month at no cost.</li>
+<li><strong>Claude:</strong> the most accurate, and it phrases your messages in a formal tone suited to business correspondence. It needs an API key from console.anthropic.com, and its use is charged to your account.</li>
+</ul>
+<p>The options of these two services appear only while that service is chosen:</p>
+<ul>
+<li><strong>DeepL API key:</strong> appears when DeepL is chosen; enter your key here.</li>
+<li><strong>Claude API key and Claude model:</strong> appear when Claude is chosen. Enter your key in the first and leave the second at its default, which is fast and well suited to translation.</li>
+<li><strong>Write my messages in a formal tone suitable for businesses:</strong> appears when DeepL or Claude is chosen. When checked, your outgoing messages are phrased politely and professionally; when unchecked, your own tone is kept. DeepL supports this only for some languages, such as German, French and Spanish, and ignores it for the others.</li>
+</ul>
+<p>The DeepL and Claude keys are stored in Windows Credential Manager, not in NVDA's configuration file, so they are not kept as plain text on your computer.</p>
+
+<h3>Automatically use another free service</h3>
+<p>When this option is checked and the chosen service cannot be reached, the add-on tries the other free services one after another, so translation keeps working. It is checked by default.</p>
+
+<h3>Languages</h3>
+<ul>
+<li><strong>My language:</strong> the language incoming messages are translated into. By default it is NVDA's own language. Text already in your language is spoken without delay: the add-on recognises it without going online, by its letters for languages with their own script such as Arabic, Russian and Chinese, and by common words for languages written in Latin letters such as English and French.</li>
+<li><strong>Default language of the other party:</strong> used in any conversation you have not chosen a language for yet. English by default.</li>
+<li><strong>Detect the other party's language automatically from their messages:</strong> when checked, the add-on works out the other party's language from the messages of theirs that you read, so your replies go out in their language without you choosing it. When the language changes you hear, for example, "The other party's language is now French". Only fairly long messages are used, because the language of a few words cannot be detected reliably. If you skim quickly past many messages, only the last one is sent to the translation service, to avoid flooding it with requests. Off by default.</li>
+</ul>
+
+<h3>Your outgoing messages</h3>
+<ul>
+<li><strong>Translate my messages before sending them when I press Enter.</strong></li>
+<li><strong>Let me hear the translation before sending; Enter again sends it:</strong> when checked, the first Enter puts the translation in the message field and speaks it without sending. If you are happy with it, press Enter again to send it. You can also edit it first, or undo it with Control+Z to get your original message back. Off by default.</li>
+<li><strong>Translate my message back into my language so I can check its meaning:</strong> when checked, your translated message is translated back into your language and you hear, for example, "Meaning: Hello, I am interested in your products". That way you can be sure the meaning came across, even if you do not know the other party's language. It works with or without the option above. Off by default.</li>
+</ul>
+
+<h3>Incoming messages</h3>
+<ul>
+<li><strong>Translate incoming messages when reading them.</strong></li>
+</ul>
+
+<h3>Words that must not be translated</h3>
+<p>Enter company names, product names and any other words you want left as they are, one word or phrase per line. For example, if you enter Acme Pro, it stays as it is in your outgoing and incoming messages instead of being translated literally. Upper and lower case do not matter.</p>
+
+<h3>History</h3>
+<ul>
+<li><strong>Keep a history of translated messages:</strong> when checked, every translated message, sent or received, is saved with its original text, its translation, the conversation name and the time. Show it with NVDA+Alt+Shift+H and close it with the Close button or Escape. The history keeps the last two thousand messages. On by default.</li>
+<li><strong>Clear history button:</strong> deletes the whole history after asking you to confirm.</li>
+</ul>
+
+<h2>How it works</h2>
+<h3>Outgoing messages</h3>
+<p>When you press Enter in the message field, the add-on reads your message and sends it to the translation service. It then puts the translation in place of your original text and sends the message, or waits for a second Enter if hearing the translation before sending is turned on. Enter is only affected in conversations where translation is on; everywhere else it works as usual.</p>
+<h3>Incoming messages</h3>
+<p>When NVDA is about to speak text in a language other than yours, the add-on holds it back for a moment, translates it, and NVDA speaks the translation. Translations are remembered, so returning to the same message speaks it immediately. Text already in your language is spoken as is, with no delay.</p>
+<h3>How conversations are told apart</h3>
+<p>The add-on identifies a conversation by the program name and window title. Some programs also name the chat in the label of the message field itself, as WhatsApp for desktop does by including the other party's name in it, and the add-on uses that too, so each chat keeps its own language even when the window title is the same. In programs that name the chat in neither place, such as Unigram, one language applies to all chats in the program. There, detecting the other party's language automatically helps, or change the language with NVDA+Alt+Shift+L when you move to a chat in another language.</p>
+
+<h2>Important notes</h2>
+<ul>
+<li><strong>Untranslated text is never sent:</strong> if translation fails, for example because the internet connection drops, the message is not sent. It stays in the message field untranslated and you hear the reason.</li>
+<li><strong>Leaving the message field:</strong> if you leave the message field before translation finishes, sending is cancelled and your message is left as it was. If you leave after the translation is put in the field but before it is sent, sending is cancelled too and the translation stays in the field, so Enter is never pressed somewhere else.</li>
+<li><strong>Keyboard layout:</strong> the add-on works with any keyboard layout, Arabic, English or other.</li>
+<li><strong>The clipboard:</strong> the add-on uses the clipboard for a moment to put the translation in the message field, then restores what was there before.</li>
+<li><strong>Your own messages after sending:</strong> when your sent message appears in the conversation in the other party's language, you hear it in your language, because it is treated like any other foreign text.</li>
+<li><strong>Say all:</strong> during say all, only text that has already been translated is spoken translated, so reading is not interrupted.</li>
+<li><strong>Beeps:</strong> a short high beep means your message is being translated; a low beep means translation failed.</li>
+<li><strong>Privacy:</strong> text to be translated is sent to the translation service you choose. The history is stored only in NVDA's configuration folder on your computer, and the DeepL and Claude keys in Windows Credential Manager. If you do not want your messages kept, turn the history off and clear it.</li>
+</ul>
+
+<h2>Troubleshooting</h2>
+<ul>
+<li><strong>Enter sends without translating:</strong> check that the add-on is on, that translation is on in the conversation by pressing NVDA+Alt+Shift+S, and that "Translate my messages before sending them" is checked in the settings.</li>
+<li><strong>Incoming messages are not translated:</strong> check that "Translate incoming messages when reading them" is checked and that your language is set correctly in the settings.</li>
+<li><strong>One service keeps giving errors:</strong> choose another service, or turn on the automatic backup service option.</li>
+<li><strong>A company or product name was translated:</strong> add it to "Words that must not be translated" in the settings.</li>
+</ul>
+</body>
+</html>

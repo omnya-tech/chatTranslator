@@ -1,0 +1,56 @@
+# Runs the tests and builds the add-on on every push and pull request.
+# Publishing a release (on the GitHub site, or by pushing a tag such as v1.0.0)
+# attaches the built .nvda-addon to it.
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -t . -v
+
+      - name: Build the add-on
+        run: python build.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatTranslator
+          path: "*.nvda-addon"
+
+      - name: Check the tag matches the manifest version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          version=$(sed -n 's/^version = //p' addon/manifest.ini)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match manifest version $version"
+            exit 1
+          fi
+
+      - name: Attach the add-on to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # The release may already exist (made on the GitHub site); otherwise create it.
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" *.nvda-addon --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" *.nvda-addon --title "Chat Translator $GITHUB_REF_NAME" --generate-notes
+          fi

@@ -1,0 +1,356 @@
+# Arabic translation of the Chat Translator NVDA add-on.
+msgid ""
+msgstr ""
+"Project-Id-Version: chatTranslator 1.0.0\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Chat Translator"
+msgstr "مترجم المحادثات"
+
+msgid "The message was not sent. %s"
+msgstr "لم تُرسَل الرسالة. %s"
+
+msgid "Sending was cancelled because you left the message field; your message is unchanged"
+msgstr "أُلغي الإرسال لأنك غادرت خانة الكتابة، وبقيت رسالتك كما هي"
+
+msgid "Could not put the translation in the message field, so the message was not sent"
+msgstr "تعذّر وضع الترجمة في خانة الكتابة، فلم تُرسَل الرسالة"
+
+msgid "Sent in %s"
+msgstr "أُرسلت باللغة %s"
+
+msgid "Turns translation on or off in the current conversation"
+msgstr "تفعيل الترجمة في المحادثة الحالية أو إيقافها"
+
+msgid "Translation on, the other party's language is %s"
+msgstr "تفعّلت الترجمة، ولغة الطرف الآخر هي %s"
+
+msgid "Translation off"
+msgstr "توقفت الترجمة"
+
+msgid "Chooses the other party's language in the current conversation"
+msgstr "اختيار لغة الطرف الآخر في المحادثة الحالية"
+
+msgid "What language does the other party use?"
+msgstr "ما لغة الطرف الآخر؟"
+
+msgid "Your messages will be sent in %s"
+msgstr "ستُرسَل رسائلك باللغة %s"
+
+msgid "Speaks the original text of the last translation"
+msgstr "نطق النص الأصلي لآخر ما تُرجِم"
+
+msgid "Nothing has been translated yet"
+msgstr "لم يُترجَم شيء بعد"
+
+msgid "Reports the translation status of the current conversation"
+msgstr "معرفة حالة الترجمة في المحادثة الحالية"
+
+msgid "Translation on, the other party's language is %(language)s, the translation service is %(service)s"
+msgstr "الترجمة مفعّلة، ولغة الطرف الآخر هي %(language)s، وخدمة الترجمة هي %(service)s"
+
+msgid "Translation is off in this conversation"
+msgstr "الترجمة متوقفة في هذه المحادثة"
+
+msgid "Translation service:"
+msgstr "خدمة الترجمة:"
+
+msgid "Claude API key:"
+msgstr "مفتاح Claude API:"
+
+msgid "Claude model:"
+msgstr "نموذج Claude:"
+
+msgid "Write my messages in a formal tone suitable for businesses"
+msgstr "صياغة رسائلي بأسلوب رسمي يناسب مراسلة الشركات"
+
+msgid "Automatically use another free service if the chosen one fails"
+msgstr "استخدام خدمة مجانية بديلة تلقائيًا إذا تعذّرت الخدمة المختارة"
+
+msgid "My language (incoming messages are translated into it):"
+msgstr "لغتي (تُترجَم إليها الرسائل الواردة):"
+
+msgid "Default language of the other party:"
+msgstr "لغة الطرف الآخر الافتراضية:"
+
+msgid "Translate my messages before sending them when I press Enter"
+msgstr "ترجمة رسائلي قبل إرسالها عند الضغط على Enter"
+
+msgid "Translate incoming messages when reading them"
+msgstr "ترجمة الرسائل الواردة عند قراءتها"
+
+msgid "Google Translate (free)"
+msgstr "ترجمة جوجل (مجانية)"
+
+msgid "Microsoft Bing Translator (free)"
+msgstr "مترجم مايكروسوفت Bing (مجاني)"
+
+msgid "MyMemory (free, with a daily limit)"
+msgstr "MyMemory (مجانية، بحدّ يومي)"
+
+msgid "Claude (most accurate, requires an API key)"
+msgstr "Claude (أدقّ، ويتطلّب مفتاح API)"
+
+msgid "Google"
+msgstr "جوجل"
+
+msgid "Microsoft Bing"
+msgstr "مايكروسوفت Bing"
+
+msgid "%(service)s returned error %(code)d"
+msgstr "أعادت خدمة %(service)s الخطأ %(code)d"
+
+msgid "Could not connect to %(service)s: %(error)s"
+msgstr "تعذّر الاتصال بخدمة %(service)s: %(error)s"
+
+msgid "Could not understand the response from %s"
+msgstr "لم يُفهَم ردّ خدمة %s"
+
+msgid "%s returned an empty translation"
+msgstr "أعادت خدمة %s ترجمة فارغة"
+
+msgid "The Microsoft Bing page has changed and can no longer be used"
+msgstr "تغيّرت صفحة مايكروسوفت Bing ولم يعد ممكنًا استخدامها"
+
+msgid "The free daily limit of MyMemory has been used up"
+msgstr "استُنفد الحدّ اليومي المجاني لخدمة MyMemory"
+
+msgid "%(service)s returned an error: %(error)s"
+msgstr "أعادت خدمة %(service)s خطأ: %(error)s"
+
+msgid "No Claude API key has been entered; enter it in the add-on settings"
+msgstr "لم يُدخَل مفتاح Claude API، أدخِله من إعدادات الإضافة"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "French"
+msgstr "الفرنسية"
+
+msgid "German"
+msgstr "الألمانية"
+
+msgid "Spanish"
+msgstr "الإسبانية"
+
+msgid "Italian"
+msgstr "الإيطالية"
+
+msgid "Portuguese"
+msgstr "البرتغالية"
+
+msgid "Russian"
+msgstr "الروسية"
+
+msgid "Turkish"
+msgstr "التركية"
+
+msgid "Persian"
+msgstr "الفارسية"
+
+msgid "Urdu"
+msgstr "الأردية"
+
+msgid "Hindi"
+msgstr "الهندية"
+
+msgid "Bengali"
+msgstr "البنغالية"
+
+msgid "Simplified Chinese"
+msgstr "الصينية المبسّطة"
+
+msgid "Traditional Chinese"
+msgstr "الصينية التقليدية"
+
+msgid "Japanese"
+msgstr "اليابانية"
+
+msgid "Korean"
+msgstr "الكورية"
+
+msgid "Indonesian"
+msgstr "الإندونيسية"
+
+msgid "Malay"
+msgstr "الملايوية"
+
+msgid "Thai"
+msgstr "التايلاندية"
+
+msgid "Vietnamese"
+msgstr "الفيتنامية"
+
+msgid "Dutch"
+msgstr "الهولندية"
+
+msgid "Swedish"
+msgstr "السويدية"
+
+msgid "Norwegian"
+msgstr "النرويجية"
+
+msgid "Danish"
+msgstr "الدنماركية"
+
+msgid "Finnish"
+msgstr "الفنلندية"
+
+msgid "Polish"
+msgstr "البولندية"
+
+msgid "Czech"
+msgstr "التشيكية"
+
+msgid "Greek"
+msgstr "اليونانية"
+
+msgid "Romanian"
+msgstr "الرومانية"
+
+msgid "Hungarian"
+msgstr "المجرية"
+
+msgid "Ukrainian"
+msgstr "الأوكرانية"
+
+msgid "Hebrew"
+msgstr "العبرية"
+
+msgid "Swahili"
+msgstr "السواحيلية"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "Turns Chat Translator on or off everywhere"
+msgstr "تشغيل مترجم المحادثات أو إيقافه في كل مكان"
+
+msgid "Chat Translator on"
+msgstr "مترجم المحادثات يعمل"
+
+msgid "Chat Translator off"
+msgstr "مترجم المحادثات متوقف"
+
+msgid "Chat Translator is turned off"
+msgstr "مترجم المحادثات متوقف حاليًا"
+
+msgid "Enable Chat Translator"
+msgstr "تشغيل مترجم المحادثات"
+
+msgid "Sending was cancelled because you left the message field; the translation is in the field"
+msgstr "أُلغي الإرسال لأنك غادرت خانة الكتابة، والترجمة موجودة في الخانة"
+
+msgid "Meaning: %s"
+msgstr "المعنى: %s"
+
+msgid "Press Enter to send, or edit the message first"
+msgstr "اضغط Enter للإرسال، أو عدّل الرسالة أولًا"
+
+msgid "Sent"
+msgstr "أُرسلت"
+
+msgid "Received"
+msgstr "واردة"
+
+msgid "Sent without translation"
+msgstr "أُرسلت دون ترجمة"
+
+msgid "Sends the message as written, without translating it"
+msgstr "إرسال الرسالة كما كُتبت دون ترجمتها"
+
+msgid "Not in a message field"
+msgstr "لست في خانة كتابة"
+
+msgid "Detect the other party's language automatically from their messages"
+msgstr "التعرّف على لغة الطرف الآخر تلقائيًا من رسائله"
+
+msgid "The other party's language is now %s"
+msgstr "لغة الطرف الآخر الآن هي %s"
+
+msgid "Let me hear the translation before sending; Enter again sends it"
+msgstr "نطق الترجمة قبل الإرسال، على أن تُرسَل بالضغط على Enter مرة أخرى"
+
+msgid "Translate my message back into my language so I can check its meaning"
+msgstr "ترجمة رسالتي عكسيًا إلى لغتي للتأكد من معناها"
+
+msgid "Words that must not be translated, such as company and product names (one per line):"
+msgstr "كلمات لا تُترجَم، مثل أسماء الشركات والمنتجات (كلمة في كل سطر):"
+
+msgid "Keep a history of translated messages"
+msgstr "الاحتفاظ بسجل للرسائل المترجَمة"
+
+msgid "Clear history"
+msgstr "مسح السجل"
+
+msgid "Delete all translated messages from the history?"
+msgstr "هل تريد حذف جميع الرسائل المترجَمة من السجل؟"
+
+msgid "The history has been cleared"
+msgstr "مُسح السجل"
+
+msgid "Shows the history of translated messages"
+msgstr "عرض سجل الرسائل المترجَمة"
+
+msgid "The history is empty"
+msgstr "السجل فارغ"
+
+msgid "Translation history"
+msgstr "سجل الترجمة"
+
+msgid "Original: %s"
+msgstr "الأصل: %s"
+
+msgid "Translation: %s"
+msgstr "الترجمة: %s"
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Translates the selected text, or the clipboard when nothing is selected; press twice to copy the translation"
+msgstr "ترجمة النص المحدد، أو محتوى الحافظة إن لم يُحدَّد نص، والضغط مرتين ينسخ الترجمة"
+
+msgid "No text is selected and the clipboard is empty"
+msgstr "لا يوجد نص محدد، والحافظة فارغة"
+
+msgid "Translation copied"
+msgstr "نُسخت الترجمة"
+
+msgid "Translation failed. %s"
+msgstr "تعذّرت الترجمة. %s"
+
+msgid "Developed by %s"
+msgstr "تطوير: %s"
+
+msgid "DeepL (excellent, requires a free API key)"
+msgstr "DeepL (ممتازة، وتتطلّب مفتاح API مجانيًّا)"
+
+msgid "DeepL API key:"
+msgstr "مفتاح DeepL API:"
+
+msgid "No DeepL API key has been entered; enter it in the add-on settings"
+msgstr "لم يُدخَل مفتاح DeepL API، أدخِله من إعدادات الإضافة"
+
+msgid "The DeepL API key is not valid"
+msgstr "مفتاح DeepL API غير صالح"
+
+msgid "The DeepL monthly character limit has been used up"
+msgstr "استُنفد الحدّ الشهري من الأحرف في خدمة DeepL"
+
+msgid "NVDA's language (%s)"
+msgstr "لغة NVDA (%s)"
+
+msgid "The API key could not be saved"
+msgstr "تعذّر حفظ مفتاح API"
+
+msgid "Pastes the clipboard into the message field, translated into the other party's language"
+msgstr "لصق محتوى الحافظة في خانة الكتابة مترجمًا إلى لغة الطرف الآخر"
+
+msgid "The clipboard is empty"
+msgstr "الحافظة فارغة"
+
+msgid "Pasting was cancelled because you left the message field"
+msgstr "أُلغي اللصق لأنك غادرت خانة الكتابة"
