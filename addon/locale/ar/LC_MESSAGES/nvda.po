@@ -22,8 +22,17 @@ msgstr "تعذّر وضع الترجمة في خانة الكتابة، فلم �
 msgid "Sent in %s"
 msgstr "أُرسلت باللغة %s"
 
-msgid "Turns translation on or off in the current conversation"
-msgstr "تفعيل الترجمة في المحادثة الحالية أو إيقافها"
+msgid "Turns translation on or off in the current conversation; pressed twice, in every conversation of the program"
+msgstr "تفعيل الترجمة في المحادثة الحالية أو إيقافها، والضغط مرتين يطبّق ذلك على كل محادثات البرنامج"
+
+msgid "Translation on in all conversations of %s"
+msgstr "تفعّلت الترجمة في كل محادثات %s"
+
+msgid "Translation off in all conversations of %s"
+msgstr "توقفت الترجمة في كل محادثات %s"
+
+msgid "All conversations of %s"
+msgstr "كل محادثات %s"
 
 msgid "Translation on, the other party's language is %s"
 msgstr "تفعّلت الترجمة، ولغة الطرف الآخر هي %s"
@@ -102,9 +111,6 @@ msgstr "مايكروسوفت Bing"
 
 msgid "%(service)s returned error %(code)d"
 msgstr "أعادت خدمة %(service)s الخطأ %(code)d"
-
-msgid "Could not connect to %(service)s: %(error)s"
-msgstr "تعذّر الاتصال بخدمة %(service)s: %(error)s"
 
 msgid "Could not understand the response from %s"
 msgstr "لم يُفهَم ردّ خدمة %s"
@@ -247,9 +253,6 @@ msgstr "أُلغي الإرسال لأنك غادرت خانة الكتابة، 
 msgid "Meaning: %s"
 msgstr "المعنى: %s"
 
-msgid "Press Enter to send, or edit the message first"
-msgstr "اضغط Enter للإرسال، أو عدّل الرسالة أولًا"
-
 msgid "Sent"
 msgstr "أُرسلت"
 
@@ -354,3 +357,282 @@ msgstr "الحافظة فارغة"
 
 msgid "Pasting was cancelled because you left the message field"
 msgstr "أُلغي اللصق لأنك غادرت خانة الكتابة"
+
+msgid "Could not read the message field"
+msgstr "تعذّرت قراءة خانة الكتابة"
+
+msgid "The message is too long for %s"
+msgstr "الرسالة أطول مما تقبله خدمة %s"
+
+msgid "Afrikaans"
+msgstr "الأفريقانية"
+
+msgid "Albanian"
+msgstr "الألبانية"
+
+msgid "Amharic"
+msgstr "الأمهرية"
+
+msgid "Armenian"
+msgstr "الأرمينية"
+
+msgid "Azerbaijani"
+msgstr "الأذربيجانية"
+
+msgid "Basque"
+msgstr "الباسكية"
+
+msgid "Belarusian"
+msgstr "البيلاروسية"
+
+msgid "Bosnian"
+msgstr "البوسنية"
+
+msgid "Bulgarian"
+msgstr "البلغارية"
+
+msgid "Burmese"
+msgstr "البورمية"
+
+msgid "Catalan"
+msgstr "الكتالانية"
+
+msgid "Cebuano"
+msgstr "السيبوانية"
+
+msgid "Chichewa"
+msgstr "التشيتشيوا"
+
+msgid "Corsican"
+msgstr "الكورسيكية"
+
+msgid "Croatian"
+msgstr "الكرواتية"
+
+msgid "Esperanto"
+msgstr "الإسبرانتو"
+
+msgid "Estonian"
+msgstr "الإستونية"
+
+msgid "Filipino"
+msgstr "الفلبينية"
+
+msgid "Frisian"
+msgstr "الفريزية"
+
+msgid "Galician"
+msgstr "الجاليكية"
+
+msgid "Georgian"
+msgstr "الجورجية"
+
+msgid "Gujarati"
+msgstr "الغوجاراتية"
+
+msgid "Haitian Creole"
+msgstr "الكريولية الهايتية"
+
+msgid "Hausa"
+msgstr "الهوسا"
+
+msgid "Hawaiian"
+msgstr "الهاوائية"
+
+msgid "Hmong"
+msgstr "الهمونغ"
+
+msgid "Icelandic"
+msgstr "الآيسلندية"
+
+msgid "Igbo"
+msgstr "الإيغبو"
+
+msgid "Irish"
+msgstr "الأيرلندية"
+
+msgid "Javanese"
+msgstr "الجاوية"
+
+msgid "Kannada"
+msgstr "الكانادا"
+
+msgid "Kazakh"
+msgstr "الكازاخية"
+
+msgid "Khmer"
+msgstr "الخميرية"
+
+msgid "Kinyarwanda"
+msgstr "الكينيارواندا"
+
+msgid "Kurdish"
+msgstr "الكردية"
+
+msgid "Kyrgyz"
+msgstr "القيرغيزية"
+
+msgid "Lao"
+msgstr "اللاوية"
+
+msgid "Latin"
+msgstr "اللاتينية"
+
+msgid "Latvian"
+msgstr "اللاتفية"
+
+msgid "Lithuanian"
+msgstr "الليتوانية"
+
+msgid "Luxembourgish"
+msgstr "اللوكسمبورغية"
+
+msgid "Macedonian"
+msgstr "المقدونية"
+
+msgid "Malagasy"
+msgstr "الملغاشية"
+
+msgid "Malayalam"
+msgstr "المالايالامية"
+
+msgid "Maltese"
+msgstr "المالطية"
+
+msgid "Maori"
+msgstr "الماورية"
+
+msgid "Marathi"
+msgstr "الماراثية"
+
+msgid "Mongolian"
+msgstr "المنغولية"
+
+msgid "Nepali"
+msgstr "النيبالية"
+
+msgid "Odia"
+msgstr "الأودية"
+
+msgid "Pashto"
+msgstr "البشتوية"
+
+msgid "Punjabi"
+msgstr "البنجابية"
+
+msgid "Samoan"
+msgstr "الساموية"
+
+msgid "Scottish Gaelic"
+msgstr "الغيلية الاسكتلندية"
+
+msgid "Serbian"
+msgstr "الصربية"
+
+msgid "Sesotho"
+msgstr "السوتو"
+
+msgid "Shona"
+msgstr "الشونا"
+
+msgid "Sindhi"
+msgstr "السندية"
+
+msgid "Sinhala"
+msgstr "السنهالية"
+
+msgid "Slovak"
+msgstr "السلوفاكية"
+
+msgid "Slovenian"
+msgstr "السلوفينية"
+
+msgid "Somali"
+msgstr "الصومالية"
+
+msgid "Sundanese"
+msgstr "السوندانية"
+
+msgid "Tajik"
+msgstr "الطاجيكية"
+
+msgid "Tamil"
+msgstr "التاميلية"
+
+msgid "Tatar"
+msgstr "التتارية"
+
+msgid "Telugu"
+msgstr "التيلوغوية"
+
+msgid "Turkmen"
+msgstr "التركمانية"
+
+msgid "Uyghur"
+msgstr "الأويغورية"
+
+msgid "Uzbek"
+msgstr "الأوزبكية"
+
+msgid "Welsh"
+msgstr "الويلزية"
+
+msgid "Xhosa"
+msgstr "الخوسا"
+
+msgid "Yiddish"
+msgstr "اليديشية"
+
+msgid "Yoruba"
+msgstr "اليوروبا"
+
+msgid "Zulu"
+msgstr "الزولو"
+
+msgid "Shows the saved conversations and their settings"
+msgstr "عرض المحادثات المحفوظة وإعداداتها"
+
+msgid "Press %s to send, or edit the message first"
+msgstr "اضغط %s للإرسال، أو عدّل الرسالة أولًا"
+
+msgid "Saved conversations"
+msgstr "المحادثات المحفوظة"
+
+msgid "Saved conversations..."
+msgstr "المحادثات المحفوظة..."
+
+msgid "Conversations:"
+msgstr "المحادثات:"
+
+msgid "Turn translation on or off"
+msgstr "تفعيل الترجمة أو إيقافها"
+
+msgid "Change language..."
+msgstr "تغيير اللغة..."
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "%(name)s: translation %(state)s, language %(language)s"
+msgstr "%(name)s: الترجمة %(state)s، واللغة %(language)s"
+
+msgid "on"
+msgstr "مفعّلة"
+
+msgid "off"
+msgstr "متوقفة"
+
+msgid "No saved conversations"
+msgstr "لا توجد محادثات محفوظة"
+
+msgid "The key that sends a message in my chat programs:"
+msgstr "المفتاح الذي يُرسِل الرسالة في برامج المحادثة عندي:"
+
+msgid "Translate notifications of new messages"
+msgstr "ترجمة إشعارات الرسائل الجديدة"
+
+msgid "Could not reach %s. Check your internet connection."
+msgstr "تعذّر الوصول إلى خدمة %s. تأكد من اتصالك بالإنترنت."
+
+msgid "Could not tell which conversation this is; try again"
+msgstr "تعذّر تحديد المحادثة الحالية، حاول مرة أخرى"

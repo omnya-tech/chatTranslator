@@ -112,5 +112,99 @@ class DeepLTests(unittest.TestCase):
 		self.assertFalse(set(translators.KEYED_ENGINES) & set(translators.FREE_ENGINES))
 
 
+class TimeLimitTests(unittest.TestCase):
+	def setUp(self):
+		self.original = translators._translateWith
+		self.seen = []
+
+	def tearDown(self):
+		translators._translateWith = self.original
+
+	def test_timeout_reaches_the_service(self):
+		def translateWith(engine, text, target, source, apiKeys, model, purpose, formal, timeout=None):
+			self.seen.append(timeout)
+			return text, None
+		translators._translateWith = translateWith
+		translators.translate("hi", "ar", timeout=4)
+		translators.translate("hi", "ar")
+		self.assertEqual(self.seen, [4, None])
+
+	def test_used_up_budget_stops_trying_other_services(self):
+		def translateWith(engine, *args):
+			self.seen.append(engine)
+			raise translators.TranslationError(engine + " failed")
+		translators._translateWith = translateWith
+		with self.assertRaisesRegex(translators.TranslationError, "google failed"):
+			translators.translate("hi", "ar", engine="google", budget=0)
+		self.assertEqual(self.seen, ["google"])
+
+	def test_without_a_budget_every_service_is_tried(self):
+		def translateWith(engine, *args):
+			self.seen.append(engine)
+			raise translators.TranslationError(engine + " failed")
+		translators._translateWith = translateWith
+		with self.assertRaises(translators.TranslationError):
+			translators.translate("hi", "ar", engine="google")
+		self.assertEqual(self.seen, ["google", "bing", "mymemory"])
+
+
+class ClaudeReplyTests(unittest.TestCase):
+	def setUp(self):
+		self.original = translators.urllib.request.urlopen
+
+	def tearDown(self):
+		translators.urllib.request.urlopen = self.original
+
+	def reply(self, body):
+		import io, json
+
+		class Response(io.BytesIO):
+			def __enter__(self):
+				return self
+
+			def __exit__(self, *args):
+				return False
+
+		translators.urllib.request.urlopen = lambda request, timeout=None: Response(json.dumps(body).encode("utf-8"))
+
+	def test_reply_cut_off_at_the_length_limit_is_an_error(self):
+		self.reply({"stop_reason": "max_tokens", "content": [{"type": "text", "text": "[ar] half a mess"}]})
+		with self.assertRaisesRegex(translators.TranslationError, "too long"):
+			translators.claude("long text", "en", "key")
+
+	def test_complete_reply_gives_text_and_language(self):
+		self.reply({"stop_reason": "end_turn", "content": [{"type": "text", "text": "[fr] مرحبا"}]})
+		self.assertEqual(translators.claude("Bonjour", "ar", "key"), ("مرحبا", "fr"))
+
+
+class LanguageListTests(unittest.TestCase):
+	def test_codes_are_unique_and_named(self):
+		from chatTranslatorTest import languages
+		codes = languages.codes()
+		self.assertEqual(len(codes), len(set(codes)))
+		self.assertGreater(len(codes), 100)
+		self.assertTrue(all(name for _code, name in languages.LANGUAGES))
+
+	def test_speech_codes_use_underscores(self):
+		from chatTranslatorTest import languages
+		self.assertEqual(languages.speechCode("zh-CN"), "zh_CN")
+		self.assertEqual(languages.speechCode("fr"), "fr")
+
+
+class MyMemoryTests(unittest.TestCase):
+	def setUp(self):
+		self.original = translators._open
+
+	def tearDown(self):
+		translators._open = self.original
+
+	def test_html_entities_in_the_answer_are_decoded(self):
+		import json
+		translators._open = lambda *args, **kwargs: json.dumps({
+			"responseStatus": 200, "responseData": {"translatedText": "I don&#39;t know &amp; you?", "detectedLanguage": "ar"},
+		})
+		self.assertEqual(translators.mymemory("x", "en"), ("I don't know & you?", "ar"))
+
+
 if __name__ == "__main__":
 	unittest.main()

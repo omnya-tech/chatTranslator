@@ -32,9 +32,11 @@ confspec = {
 	"defaultTargetLanguage": 'string(default="en")',
 	"autoDetectLanguage": "boolean(default=False)",
 	"translateOutgoing": "boolean(default=True)",
+	"sendKey": 'option("enter", "control+enter", default="enter")',
 	"previewBeforeSending": "boolean(default=False)",
 	"backTranslate": "boolean(default=False)",
 	"translateIncoming": "boolean(default=True)",
+	"translateNotifications": "boolean(default=True)",
 	"formalTone": "boolean(default=True)",
 	"protectedTerms": "string_list(default=list())",
 	"saveHistory": "boolean(default=True)",
@@ -56,7 +58,16 @@ def nvdaLanguage():
 
 
 def myLanguage():
-	return conf()["myLanguage"] or nvdaLanguage()
+	chosen = conf()["myLanguage"]
+	return chosen if chosen in languages.codes() else nvdaLanguage()
+
+
+# The keys that send a message, as the user sees them and as NVDA names them.
+SEND_KEYS = (("enter", "Enter"), ("control+enter", "Control+Enter"))
+
+
+def sendKeyName():
+	return dict(SEND_KEYS).get(conf()["sendKey"], "Enter")
 
 
 _apiKeys = {}
@@ -64,8 +75,8 @@ _apiKeys = {}
 
 def apiKeys():
 	"""The Claude and DeepL keys, read once from Credential Manager."""
-	if not _apiKeys:
-		for engine in KEYED_ENGINES:
+	for engine in KEYED_ENGINES:
+		if engine not in _apiKeys:
 			try:
 				_apiKeys[engine] = credentials.read(engine)
 			except OSError:
@@ -92,8 +103,9 @@ def migrateApiKeys():
 
 class ChatTranslatorPanel(SettingsPanel):
 	title = _("Chat Translator")
-	# Set by the global plugin, which owns the history file.
+	# Set by the global plugin, which owns the history file and the conversations.
 	clearHistory = None
+	showConversations = None
 
 	def makeSettings(self, settingsSizer):
 		helper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -161,6 +173,12 @@ class ChatTranslatorPanel(SettingsPanel):
 		)
 		self.translateOutgoing.SetValue(c["translateOutgoing"])
 
+		self.sendKey = helper.addLabeledControl(
+			_("The key that sends a message in my chat programs:"), wx.Choice,
+			choices=[label for _key, label in SEND_KEYS],
+		)
+		self.sendKey.SetSelection([key for key, _label in SEND_KEYS].index(c["sendKey"]))
+
 		self.preview = helper.addItem(
 			wx.CheckBox(self, label=_("Let me hear the translation before sending; Enter again sends it"))
 		)
@@ -175,6 +193,14 @@ class ChatTranslatorPanel(SettingsPanel):
 			wx.CheckBox(self, label=_("Translate incoming messages when reading them"))
 		)
 		self.translateIncoming.SetValue(c["translateIncoming"])
+
+		self.translateNotifications = helper.addItem(
+			wx.CheckBox(self, label=_("Translate notifications of new messages"))
+		)
+		self.translateNotifications.SetValue(c["translateNotifications"])
+
+		conversationsButton = helper.addItem(wx.Button(self, label=_("Saved conversations...")))
+		conversationsButton.Bind(wx.EVT_BUTTON, self._onConversations)
 
 		self.protectedTerms = helper.addLabeledControl(
 			_("Words that must not be translated, such as company and product names (one per line):"),
@@ -207,6 +233,10 @@ class ChatTranslatorPanel(SettingsPanel):
 		if parent:
 			parent.Layout()
 
+	def _onConversations(self, evt):
+		if ChatTranslatorPanel.showConversations:
+			ChatTranslatorPanel.showConversations(self)
+
 	def _onClearHistory(self, evt):
 		if gui.messageBox(
 			_("Delete all translated messages from the history?"), _("Clear history"),
@@ -238,8 +268,10 @@ class ChatTranslatorPanel(SettingsPanel):
 		c["defaultTargetLanguage"] = codes[self.defaultTarget.GetSelection()]
 		c["autoDetectLanguage"] = self.autoDetect.GetValue()
 		c["translateOutgoing"] = self.translateOutgoing.GetValue()
+		c["sendKey"] = SEND_KEYS[self.sendKey.GetSelection()][0]
 		c["previewBeforeSending"] = self.preview.GetValue()
 		c["backTranslate"] = self.backTranslate.GetValue()
 		c["translateIncoming"] = self.translateIncoming.GetValue()
+		c["translateNotifications"] = self.translateNotifications.GetValue()
 		c["protectedTerms"] = [line.strip() for line in self.protectedTerms.GetValue().splitlines() if line.strip()]
 		c["saveHistory"] = self.saveHistory.GetValue()

@@ -3,6 +3,7 @@
 # This file is covered by the GNU General Public License, version 2. See the file LICENSE for details.
 # Translation engines. NVDA is only needed for translated messages, so this can be tested on its own.
 
+import html
 import http.cookiejar
 import json
 import re
@@ -52,14 +53,19 @@ class TranslationError(Exception):
 	pass
 
 
+def _unreachable(service):
+	"""The error for a service that did not answer: said to the user, so no technical detail."""
+	return TranslationError(_("Could not reach %s. Check your internet connection.") % service)
+
+
 def _open(request, timeout, service, opener=None):
 	try:
 		with (opener.open if opener else urllib.request.urlopen)(request, timeout=timeout) as response:
 			return response.read().decode("utf-8")
 	except urllib.error.HTTPError as e:
 		raise TranslationError(_("%(service)s returned error %(code)d") % {"service": service, "code": e.code})
-	except Exception as e:
-		raise TranslationError(_("Could not connect to %(service)s: %(error)s") % {"service": service, "error": e})
+	except Exception:
+		raise _unreachable(service)
 
 
 def _chunks(text, limit):
@@ -139,8 +145,8 @@ def _bingNewSession(timeout):
 		with opener.open(request, timeout=timeout) as response:
 			page = response.read().decode("utf-8")
 			host = urllib.parse.urlparse(response.geturl()).netloc
-	except Exception as e:
-		raise TranslationError(_("Could not connect to %(service)s: %(error)s") % {"service": ENGINE_NAMES["bing"], "error": e})
+	except Exception:
+		raise _unreachable(ENGINE_NAMES["bing"])
 	try:
 		ig = re.search(r'IG:"([^"]+)"', page).group(1)
 		iid = re.search(r'data-iid="([^"]+)"', page).group(1)
@@ -214,7 +220,7 @@ def mymemory(text, target, source="auto", timeout=15):
 				"service": ENGINE_NAMES["mymemory"], "error": result.get("responseDetails", ""),
 			})
 		detected.append(result["responseData"].get("detectedLanguage"))
-		return result["responseData"]["translatedText"]
+		return html.unescape(result["responseData"]["translatedText"])
 
 	translated = _byChunks(text, _MYMEMORY_LIMIT, translateChunk)
 	if source != "auto":
@@ -274,8 +280,10 @@ def claude(text, target, apiKey, model=CLAUDE_DEFAULT_MODEL, purpose="incoming",
 		except Exception:
 			message = str(e.code)
 		raise TranslationError(_("%(service)s returned an error: %(error)s") % {"service": ENGINE_NAMES["claude"], "error": message})
-	except Exception as e:
-		raise TranslationError(_("Could not connect to %(service)s: %(error)s") % {"service": ENGINE_NAMES["claude"], "error": e})
+	except Exception:
+		raise _unreachable(ENGINE_NAMES["claude"])
+	if result.get("stop_reason") == "max_tokens":
+		raise TranslationError(_("The message is too long for %s") % ENGINE_NAMES["claude"])
 	translated = "".join(
 		block.get("text", "") for block in result.get("content", []) if block.get("type") == "text"
 	).strip()
@@ -330,8 +338,8 @@ def deepl(text, target, apiKey, purpose="incoming", formal=True, timeout=15):
 		if e.code == 456:
 			raise TranslationError(_("The DeepL monthly character limit has been used up"))
 		raise TranslationError(_("%(service)s returned error %(code)d") % {"service": ENGINE_NAMES["deepl"], "code": e.code})
-	except Exception as e:
-		raise TranslationError(_("Could not connect to %(service)s: %(error)s") % {"service": ENGINE_NAMES["deepl"], "error": e})
+	except Exception:
+		raise _unreachable(ENGINE_NAMES["deepl"])
 	try:
 		item = result["translations"][0]
 		translated = item["text"]
@@ -342,16 +350,18 @@ def deepl(text, target, apiKey, purpose="incoming", formal=True, timeout=15):
 	return translated, _normalizeDetected(item.get("detected_source_language"))
 
 
-def _translateWith(engine, text, target, source, apiKeys, model, purpose, formal):
+def _translateWith(engine, text, target, source, apiKeys, model, purpose, formal, timeout=None):
+	"""timeout None keeps each service's own default."""
+	extra = {} if timeout is None else {"timeout": timeout}
 	if engine == "claude":
-		return claude(text, target, apiKeys.get("claude", ""), model, purpose, formal)
+		return claude(text, target, apiKeys.get("claude", ""), model, purpose, formal, **extra)
 	if engine == "deepl":
-		return deepl(text, target, apiKeys.get("deepl", ""), purpose, formal)
+		return deepl(text, target, apiKeys.get("deepl", ""), purpose, formal, **extra)
 	if engine == "bing":
-		return bing(text, target)
+		return bing(text, target, **extra)
 	if engine == "mymemory":
-		return mymemory(text, target, source)
-	return google(text, target)
+		return mymemory(text, target, source, **extra)
+	return google(text, target, **extra)
 
 
 # Protected terms are swapped for placeholders that every service leaves alone
@@ -384,11 +394,14 @@ def restore(text, originals):
 
 def translate(
 	text, target, engine="google", source="auto", apiKeys=None, model="",
-	purpose="incoming", formal=True, fallback=True, terms=(),
+	purpose="incoming", formal=True, fallback=True, terms=(), timeout=None, budget=None,
 ):
 	"""Translates with the chosen engine; if it fails and fallback is on, tries the free engines in turn.
 
 	apiKeys maps "claude" and "deepl" to their keys.
+	timeout: seconds each service may take (None = its own default).
+	budget: seconds for the whole call; no further service is tried once it is used up. Speech
+	waiting on a translation must not wait for every service to time out in turn.
 	Returns (translation, detected source language code or None).
 	Raises the chosen engine's error when every engine fails.
 	"""
@@ -397,10 +410,15 @@ def translate(
 	order = [engine]
 	if fallback:
 		order += [e for e in FREE_ENGINES if e != engine]
+	started = time.monotonic()
 	firstError = None
 	for current in order:
+		if firstError and budget is not None and time.monotonic() - started >= budget:
+			break
 		try:
-			translated, detected = _translateWith(current, protected, target, source, apiKeys, model, purpose, formal)
+			translated, detected = _translateWith(
+				current, protected, target, source, apiKeys, model, purpose, formal, timeout
+			)
 			return restore(translated, originals), detected
 		except TranslationError as e:
 			firstError = firstError or e
